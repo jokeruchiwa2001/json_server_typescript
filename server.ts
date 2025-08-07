@@ -14,6 +14,16 @@ app.get('/colis', (req, res) => {
   });
 });
 
+app.get('/', (req, res) => {
+  res.send(`
+    <h2>JSON Server TypeScript</h2>
+    <ul>
+      <li><a href="/colis">/colis</a></li>
+      <li><a href="/cargaisons">/cargaisons</a></li>
+    </ul>
+  `);
+});
+
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur le port ${PORT}`);
 });
