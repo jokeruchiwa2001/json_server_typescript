@@ -27,7 +27,30 @@ const readJsonFile = (filename) => {
         });
     });
 };
-// Endpoint pour colis.json
+// Endpoints avec préfixe /api pour compatibilité TransCargo
+app.get('/api/colis', async (req, res) => {
+    try {
+        console.log('Requête reçue sur /api/colis');
+        const data = await readJsonFile('colis.json');
+        res.json(data);
+    }
+    catch (err) {
+        console.error('Erreur /api/colis:', err);
+        res.status(500).json({ error: 'Erreur serveur lors de la lecture des colis' });
+    }
+});
+app.get('/api/cargaisons', async (req, res) => {
+    try {
+        console.log('Requête reçue sur /api/cargaisons');
+        const data = await readJsonFile('cargaisons.json');
+        res.json(data);
+    }
+    catch (err) {
+        console.error('Erreur /api/cargaisons:', err);
+        res.status(500).json({ error: 'Erreur serveur lors de la lecture des cargaisons' });
+    }
+});
+// Endpoints legacy sans préfixe (pour compatibilité)
 app.get('/colis', async (req, res) => {
     try {
         console.log('Requête reçue sur /colis');
@@ -39,7 +62,6 @@ app.get('/colis', async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur lors de la lecture des colis' });
     }
 });
-// Endpoint pour cargaisons.json
 app.get('/cargaisons', async (req, res) => {
     try {
         console.log('Requête reçue sur /cargaisons');
@@ -53,7 +75,13 @@ app.get('/cargaisons', async (req, res) => {
 });
 app.get('/', (req, res) => {
     res.send(`
-    <h2>JSON Server TypeScript</h2>
+    <h2>JSON Server TypeScript - TransCargo API</h2>
+    <h3>Endpoints API TransCargo:</h3>
+    <ul>
+      <li><a href="/api/colis">/api/colis</a></li>
+      <li><a href="/api/cargaisons">/api/cargaisons</a></li>
+    </ul>
+    <h3>Endpoints legacy:</h3>
     <ul>
       <li><a href="/colis">/colis</a></li>
       <li><a href="/cargaisons">/cargaisons</a></li>
