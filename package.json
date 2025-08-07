@@ -1,6 +1,7 @@
 {
   "name": "json_server_typescript",
   "version": "1.0.0",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
